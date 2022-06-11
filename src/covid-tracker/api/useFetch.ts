@@ -28,3 +28,7 @@ export const useFetch = (endpoint: Endpoint, params?: any, deps: any[] = []) => 
 
   return [data, loading, error];
 };
+
+export const api = axios.create({
+  baseURL: `${API_URL}/`,
+});
