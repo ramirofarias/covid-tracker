@@ -1,4 +1,4 @@
-import { api } from '../useFetch';
+import { api } from '../index';
 
 export const getHistory = (params?: any) => {
   return api
