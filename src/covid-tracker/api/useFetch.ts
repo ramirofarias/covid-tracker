@@ -26,5 +26,5 @@ export const useFetch = (endpoint: Endpoint, params?: any, deps: any[] = []) => 
       });
   }, [endpoint, ...deps]);
 
-  return [data, error, loading];
+  return [data, loading, error];
 };

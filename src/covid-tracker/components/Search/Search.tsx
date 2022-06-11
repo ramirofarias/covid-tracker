@@ -5,7 +5,7 @@ import { SearchProps } from './Search.props';
 const { Option, OptGroup } = Select;
 
 const Search = ({ onSelect }: SearchProps) => (
-  <Select showSearch style={{ width: 200 }} onChange={onSelect} defaultValue="Argentina">
+  <Select showSearch style={{ width: 200 }} onChange={onSelect} defaultValue="Global">
     {Object.keys(countries).map((continent) => (
       <OptGroup label={continent} key={continent}>
         {(countries as any)[continent].map((country: any) => (

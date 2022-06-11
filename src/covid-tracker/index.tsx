@@ -1,5 +1,5 @@
-import { Tabs } from 'antd';
-import { useState } from 'react';
+import { Empty, Spin, Tabs } from 'antd';
+import React, { useState } from 'react';
 import { useFetch } from './api/useFetch';
 import Search from './components/Search/Search';
 import { CasesCard } from './components/CasesCard/CasesCard';
@@ -8,8 +8,15 @@ import { HistoryCard } from './components/HistoryCard/HistoryCard';
 
 const { TabPane } = Tabs;
 
+function CardWrapper({ data, loading, children }: any) {
+  if (loading) {
+    return <Spin size="large" />;
+  }
+  return <>{data ? React.cloneElement(children, { data: data }) : <Empty />}</>;
+}
+
 export const CovidTracker = () => {
-  const [selectedCountry, setSelectedCountry] = useState('Argentina');
+  const [selectedCountry, setSelectedCountry] = useState('Global');
   const [selectedHistoryStatus, setSelectedHistoryStatus] = useState('Confirmed');
   const [cases, loadingCases, errorCases] = useFetch('cases');
   const [vaccines, loadingVaccines, errorVaccines] = useFetch('vaccines');
@@ -21,8 +28,6 @@ export const CovidTracker = () => {
     },
     [selectedCountry, selectedHistoryStatus],
   );
-
-  const NO_DATA = 'no data';
   const handleSelect = (country: string) => {
     setSelectedCountry(country);
   };
@@ -32,26 +37,19 @@ export const CovidTracker = () => {
       <h1>Covid Case Tracker</h1>
       <Search onSelect={handleSelect} />
       <div className="tabs-container">
-        <Tabs
-          defaultActiveKey="1"
-          centered
-          onChange={(e) => {
-            console.log(e);
-          }}
-        >
+        <Tabs defaultActiveKey="1" centered>
           <TabPane tab="Cases" key="1">
-            {cases?.[selectedCountry] ? (
-              <CasesCard data={cases[selectedCountry]?.All} />
-            ) : (
-              NO_DATA
-            )}
+            <CardWrapper data={cases?.[selectedCountry]?.All} loading={loadingCases}>
+              <CasesCard />
+            </CardWrapper>
           </TabPane>
           <TabPane tab="Vaccines" key="2">
-            {vaccines?.[selectedCountry] ? (
-              <VaccinesCard data={vaccines[selectedCountry].All} />
-            ) : (
-              NO_DATA
-            )}
+            <CardWrapper
+              data={vaccines?.[selectedCountry]?.All}
+              loading={loadingVaccines}
+            >
+              <VaccinesCard />
+            </CardWrapper>
           </TabPane>
           <TabPane tab="Historical data" key="3">
             <Tabs
@@ -61,10 +59,14 @@ export const CovidTracker = () => {
               onChange={(e) => setSelectedHistoryStatus(e)}
             >
               <TabPane tab="Total cases" key="Confirmed">
-                {history && <HistoryCard history={history.All} label="Total cases" />}
+                <CardWrapper data={history?.All} loading={loadingHistory}>
+                  <HistoryCard label="Total cases" color="#1890ff" />
+                </CardWrapper>
               </TabPane>
               <TabPane tab="Total deaths" key="Deaths">
-                {history && <HistoryCard history={history.All} label="Total deaths" />}
+                <CardWrapper data={history?.All} loading={loadingHistory}>
+                  <HistoryCard label="Total deaths" color="#ffa39e" />
+                </CardWrapper>
               </TabPane>
             </Tabs>
           </TabPane>
