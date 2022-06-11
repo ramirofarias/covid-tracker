@@ -1,0 +1,11 @@
+.card{
+  padding: 2rem;
+  &__header{
+    display: flex;
+    place-content: center;
+    gap: 1rem;
+  }
+  &__chart{
+    padding:1rem 2rem;
+  }
+}

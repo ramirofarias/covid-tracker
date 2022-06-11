@@ -1,0 +1,31 @@
+.country-card {
+  background: #181818;
+  box-shadow: 0 0 2px rgb(0 0 0 / 50%);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 4px;
+  &__title{
+    * {
+      color: white;
+    }
+    display: flex;
+    place-content: center;
+    gap: 8px;
+    padding: 1rem;
+  }
+
+  &__content{
+    padding: 1rem ;
+    background: #1f1f1f;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    h3{
+      color: white;
+    }
+  }
+}
