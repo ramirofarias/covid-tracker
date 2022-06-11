@@ -1,7 +1,7 @@
 //get countries by continent
 
 export const countries = {
-  Global: [{ name: 'Global', code: 'GLOBAL' }],
+  Global: [{ name: 'Global' }],
   Africa: [
     { name: 'Algeria', code: 'DZ' },
     { name: 'Angola', code: 'AO' },
