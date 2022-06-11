@@ -1,5 +1,5 @@
 import { Tabs } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFetch } from './api/useFetch';
 import Search from './components/Search/Search';
 import { CasesCard } from './components/CasesCard/CasesCard';
