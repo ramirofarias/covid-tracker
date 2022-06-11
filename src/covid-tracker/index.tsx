@@ -20,19 +20,19 @@ export const CovidTracker = () => {
   const {
     data: cases,
     isLoading: loadingCases,
-    error: casesError,
+    isError: casesError,
   } = useQuery('cases', getCases);
-
+  console.log(casesError);
   const {
     data: vaccines,
     isLoading: loadingVaccines,
-    error: vaccinesError,
+    isError: vaccinesError,
   } = useQuery('vaccines', getVaccines);
 
   const {
     data: history,
     isLoading: loadingHistory,
-    error: historyError,
+    isError: historyError,
   } = useQuery(['history', selectedCountry, selectedHistoryStatus], () =>
     getHistory({
       status: selectedHistoryStatus,
@@ -51,7 +51,11 @@ export const CovidTracker = () => {
       <div className="tabs-container">
         <Tabs defaultActiveKey="1" centered>
           <TabPane tab="Cases" key="1">
-            <CardWrapper data={cases?.[selectedCountry]?.All} loading={loadingCases}>
+            <CardWrapper
+              loading={loadingCases}
+              error={casesError}
+              data={cases?.[selectedCountry]?.All}
+            >
               <CountryInfo>
                 <CasesCard />
               </CountryInfo>
@@ -61,6 +65,7 @@ export const CovidTracker = () => {
             <CardWrapper
               data={vaccines?.[selectedCountry]?.All}
               loading={loadingVaccines}
+              error={vaccinesError}
             >
               <CountryInfo>
                 <VaccinesCard />
@@ -75,14 +80,22 @@ export const CovidTracker = () => {
               onChange={(e) => setSelectedHistoryStatus(e)}
             >
               <TabPane tab="Total cases" key="Confirmed">
-                <CardWrapper data={history?.All} loading={loadingHistory}>
+                <CardWrapper
+                  data={history?.All}
+                  loading={loadingHistory}
+                  error={historyError}
+                >
                   <CountryInfo>
                     <HistoryCard label="Total cases" color={[24, 144, 255]} />
                   </CountryInfo>
                 </CardWrapper>
               </TabPane>
               <TabPane tab="Total deaths" key="Deaths">
-                <CardWrapper data={history?.All} loading={loadingHistory}>
+                <CardWrapper
+                  data={history?.All}
+                  loading={loadingHistory}
+                  error={historyError}
+                >
                   <CountryInfo>
                     <HistoryCard label="Total deaths" color={[245, 34, 45]} />
                   </CountryInfo>

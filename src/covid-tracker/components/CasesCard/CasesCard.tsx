@@ -11,7 +11,7 @@ function getInfectionsPer100k(population: number, infections: number) {
 
 export const CasesCard = ({ data }: CasesCardProps) => {
   return (
-    <div className="card">
+    <div className="card" data-testid="cases-card">
       <div className="card__header">
         <p>
           <b>Cases:</b> {formatNumber(data?.confirmed)}
