@@ -21,8 +21,8 @@ export const CountryInfo = ({ data, children, coordinates }: any) => {
 
       <div className="country-card__map">
         <MapContainer
-          center={[Number(coordinates.lat) || 0, Number(coordinates.lat) || 0]}
-          zoom={coordinates.lat ? 4 : 1}
+          center={[Number(coordinates.lat), Number(coordinates.long)]}
+          zoom={1}
           scrollWheelZoom={false}
         >
           <TileLayer

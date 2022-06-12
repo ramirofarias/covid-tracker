@@ -13,6 +13,30 @@ import { CardWrapper } from './components/CardWrapper/CardWrapper';
 
 const { TabPane } = Tabs;
 
+const getCoordinates = (data: any, selectedCountry: string) => {
+  const countryHasCoordinates = data?.[selectedCountry]?.All?.lat !== undefined;
+  const stateHasCoordinates =
+    data?.[selectedCountry]?.[Object.keys(data?.[selectedCountry])[5]] != undefined;
+
+  if (countryHasCoordinates) {
+    const country = data?.[selectedCountry]?.All;
+    return {
+      lat: country.lat,
+      long: country.long,
+    };
+  } else if (stateHasCoordinates) {
+    const state = data?.[selectedCountry][Object.keys(data?.[selectedCountry])[5]];
+    return {
+      lat: state.lat,
+      long: state.long,
+    };
+  } else
+    return {
+      lat: 0,
+      long: 0,
+    };
+};
+
 export const CovidTracker = () => {
   const [selectedCountry, setSelectedCountry] = useState('Global');
   const [selectedHistoryStatus, setSelectedHistoryStatus] = useState('Confirmed');
@@ -54,12 +78,7 @@ export const CovidTracker = () => {
               error={casesError}
               data={cases?.[selectedCountry]?.All}
             >
-              <CountryInfo
-                coordinates={{
-                  lat: cases?.[selectedCountry]?.lat,
-                  long: cases?.[selectedCountry]?.long,
-                }}
-              >
+              <CountryInfo coordinates={getCoordinates(cases, selectedCountry)}>
                 <CasesCard />
               </CountryInfo>
             </CardWrapper>
@@ -70,12 +89,7 @@ export const CovidTracker = () => {
               loading={loadingVaccines}
               error={vaccinesError}
             >
-              <CountryInfo
-                coordinates={{
-                  lat: cases?.[selectedCountry]?.lat,
-                  long: cases?.[selectedCountry]?.long,
-                }}
-              >
+              <CountryInfo coordinates={getCoordinates(cases, selectedCountry)}>
                 <VaccinesCard />
               </CountryInfo>
             </CardWrapper>
@@ -93,12 +107,7 @@ export const CovidTracker = () => {
                   loading={loadingHistory}
                   error={historyError}
                 >
-                  <CountryInfo
-                    coordinates={{
-                      lat: cases?.[selectedCountry]?.lat,
-                      long: cases?.[selectedCountry]?.long,
-                    }}
-                  >
+                  <CountryInfo coordinates={getCoordinates(cases, selectedCountry)}>
                     <HistoryCard label="Total cases" color={[24, 144, 255]} />
                   </CountryInfo>
                 </CardWrapper>
@@ -109,12 +118,7 @@ export const CovidTracker = () => {
                   loading={loadingHistory}
                   error={historyError}
                 >
-                  <CountryInfo
-                    coordinates={{
-                      lat: cases?.[selectedCountry]?.lat,
-                      long: cases?.[selectedCountry]?.long,
-                    }}
-                  >
+                  <CountryInfo coordinates={getCoordinates(cases, selectedCountry)}>
                     <HistoryCard label="Total deaths" color={[245, 34, 45]} />
                   </CountryInfo>
                 </CardWrapper>

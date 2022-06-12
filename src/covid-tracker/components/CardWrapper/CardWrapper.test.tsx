@@ -26,7 +26,7 @@ describe('CardWrapper - loading', () => {
   beforeEach(() => {
     render(
       <CardWrapper data={mockedData} loading={true} error={false}>
-        <CasesCard />
+        <div data-testid="cases-card"></div>
       </CardWrapper>,
     );
   });
@@ -40,7 +40,7 @@ describe('CardWrapper - on success', () => {
   beforeEach(() => {
     render(
       <CardWrapper data={mockedData} loading={false} error={false}>
-        <CasesCard />
+        <div data-testid="cases-card"></div>
       </CardWrapper>,
     );
   });
@@ -58,7 +58,7 @@ describe('CardWrapper - on error', () => {
   beforeEach(() => {
     render(
       <CardWrapper data={null} loading={false} error={true}>
-        <CasesCard />
+        <div data-testid="cases-card"></div>
       </CardWrapper>,
     );
   });
@@ -76,7 +76,7 @@ describe('CardWrapper - on empty data', () => {
   beforeEach(() => {
     render(
       <CardWrapper data={null} loading={false} error={false}>
-        <CasesCard />
+        <div data-testid="cases-card"></div>
       </CardWrapper>,
     );
   });

@@ -12,7 +12,7 @@ const Search = ({ onSelect }: SearchProps) => (
     {Object.keys(countries).map((continent) => (
       <OptGroup label={continent} key={continent}>
         {(countries as any)[continent].map((country: any) => (
-          <Option key={country.name} value={country.name}>
+          <Option key={country.code} value={country.name}>
             {country.code ? (
               <ReactCountryFlag
                 style={{
