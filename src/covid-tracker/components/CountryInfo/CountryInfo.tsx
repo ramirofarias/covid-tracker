@@ -2,6 +2,7 @@ import React from 'react';
 import './CountryInfo.scss';
 import ReactCountryFlag from 'react-country-flag';
 import { formatNumber } from '../../utils/formatNumber';
+import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 
 export const CountryInfo = ({ data, children }: any) => {
   return (
@@ -16,6 +17,22 @@ export const CountryInfo = ({ data, children }: any) => {
           svg
         />
         <h2>{data.country || 'Global'}</h2>
+      </div>
+
+      <div className="country-card__map">
+        <MapContainer
+          center={[Number(data.lat) || 0, Number(data.lat) || 0]}
+          zoom={data.lat ? 4 : 1}
+          scrollWheelZoom={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {data.lat && data.long && (
+            <Marker position={[Number(data.lat), Number(data.long)]}></Marker>
+          )}
+        </MapContainer>
       </div>
       <div className="country-card__content">
         {data.capital_city ? (
