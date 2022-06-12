@@ -22,13 +22,11 @@ export const CovidTracker = () => {
     isLoading: loadingCases,
     isError: casesError,
   } = useQuery('cases', getCases);
-  console.log(casesError);
   const {
     data: vaccines,
     isLoading: loadingVaccines,
     isError: vaccinesError,
   } = useQuery('vaccines', getVaccines);
-
   const {
     data: history,
     isLoading: loadingHistory,
