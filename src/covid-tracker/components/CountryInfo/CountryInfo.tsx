@@ -4,7 +4,7 @@ import ReactCountryFlag from 'react-country-flag';
 import { formatNumber } from '../../utils/formatNumber';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 
-export const CountryInfo = ({ data, children }: any) => {
+export const CountryInfo = ({ data, children, coordinates }: any) => {
   return (
     <div className="country-card">
       <div className="country-card__title">
@@ -21,16 +21,18 @@ export const CountryInfo = ({ data, children }: any) => {
 
       <div className="country-card__map">
         <MapContainer
-          center={[Number(data.lat) || 0, Number(data.lat) || 0]}
-          zoom={data.lat ? 4 : 1}
+          center={[Number(coordinates.lat) || 0, Number(coordinates.lat) || 0]}
+          zoom={coordinates.lat ? 4 : 1}
           scrollWheelZoom={false}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {data.lat && data.long && (
-            <Marker position={[Number(data.lat), Number(data.long)]}></Marker>
+          {coordinates.lat && coordinates.long && (
+            <Marker
+              position={[Number(coordinates.lat), Number(coordinates.long)]}
+            ></Marker>
           )}
         </MapContainer>
       </div>
