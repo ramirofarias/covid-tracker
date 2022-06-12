@@ -53,6 +53,10 @@ export const CovidTracker = () => {
               loading={loadingCases}
               error={casesError}
               data={cases?.[selectedCountry]?.All}
+              coordinates={[
+                cases?.[selectedCountry]?.lat,
+                cases?.[selectedCountry]?.long,
+              ]}
             >
               <CountryInfo>
                 <CasesCard />
@@ -64,6 +68,10 @@ export const CovidTracker = () => {
               data={vaccines?.[selectedCountry]?.All}
               loading={loadingVaccines}
               error={vaccinesError}
+              coordinates={[
+                cases?.[selectedCountry]?.lat,
+                cases?.[selectedCountry]?.long,
+              ]}
             >
               <CountryInfo>
                 <VaccinesCard />
@@ -93,6 +101,10 @@ export const CovidTracker = () => {
                   data={history?.All}
                   loading={loadingHistory}
                   error={historyError}
+                  coordinates={[
+                    cases?.[selectedCountry]?.lat,
+                    cases?.[selectedCountry]?.long,
+                  ]}
                 >
                   <CountryInfo>
                     <HistoryCard label="Total deaths" color={[245, 34, 45]} />

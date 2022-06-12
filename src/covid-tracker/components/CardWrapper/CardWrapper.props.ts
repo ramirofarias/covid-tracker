@@ -3,4 +3,5 @@ export interface CardWrapperProps {
   data: any;
   error: boolean;
   loading: boolean;
+  coordinates?: string[];
 }
